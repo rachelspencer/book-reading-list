@@ -7,7 +7,7 @@ const App = () => {
     const createBook = (title) => {
         const updatedBooks = [
             ...books, 
-            { id: 123, title }
+            { id: Math.round(Math.random() * 999), title }
         ];
         setBooks(updatedBooks);
     };
