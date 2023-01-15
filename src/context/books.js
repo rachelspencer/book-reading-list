@@ -1,16 +1,16 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useState, useCallback } from "react";
 
 const BooksContext = createContext();
 
 const Provider = ({children}) => {
     const [books, setBooks] = useState([]);
 
-    const fetchBooks = async () => {
+    const fetchBooks = useCallback(async () => {
         const response = await axios.get('http://localhost:3001/books');
 
         setBooks(response.data);
-    };
+    }, []);
 
     const editBookById = async (id, newTitle) => {
         const response =  await axios.put(`http://localhost:3001/books/${id}`, { 
@@ -56,7 +56,7 @@ const Provider = ({children}) => {
     };
 
     return (
-    <BooksContext.Provider value={{valueToShare}}>{children}</BooksContext.Provider>
+    <BooksContext.Provider value={valueToShare}>{children}</BooksContext.Provider>
     );
 }
 
